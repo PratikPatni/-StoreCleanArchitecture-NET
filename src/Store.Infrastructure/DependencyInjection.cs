@@ -17,7 +17,12 @@ namespace Store.Infrastructure
             services.AddDbContext<StoreContext>(options =>
                options.UseSqlServer(defaultConnectionString));
 
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>()
+                var serviceProvider = services.BuildServiceProvider();
+try {
+    var dbContext = serviceProvider.GetRequiredService < StoreContext > ();
+    dbContext.Database.Migrate();
+} catch {};
             
             var serviceProvider = services.BuildServiceProvider();
             try
